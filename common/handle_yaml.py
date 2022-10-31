@@ -54,6 +54,7 @@ class Handle_yaml:
                 content=yaml.load_all(f, Loader=yaml.FullLoader)#读取文件，并且以字典的形式存放
                 data_list=[]
                 for i in content:
+                    print(type(i))
                     print(i)
                     data_list.append(i)
                 return data_list

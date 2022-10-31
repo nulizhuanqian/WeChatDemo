@@ -11,16 +11,22 @@ import pytest
 import datetime
 
 
-# 登录接口获取token
 @pytest.fixture(scope='class')
-# 获取access_token
 def get_access_token():
     r = requests.get(
         url='https://qyapi.weixin.qq.com/cgi-bin/gettoken',
         params={'corpid': 'wwf56f991cbbdd11e7',
                 'corpsecret': '5okJWMCCzFT9hIxuxVUw5ORAwkf7WjjPK1q_E1dv09g'})
-    params_dic={'access_token':r.json()['access_token']}
-    return params_dic
+    access_token = '?access_token=' + r.json()['access_token']
+    return access_token
+# 获取access_token
+# def get_access_token():
+#     r = requests.get(
+#         url='https://qyapi.weixin.qq.com/cgi-bin/gettoken',
+#         params={'corpid': 'wwf56f991cbbdd11e7',
+#                 'corpsecret': '5okJWMCCzFT9hIxuxVUw5ORAwkf7WjjPK1q_E1dv09g'})
+#     params_dic={'access_token':r.json()['access_token']}
+#     return params_dic
 
 @pytest.fixture(scope='class')
 def get_base_url():

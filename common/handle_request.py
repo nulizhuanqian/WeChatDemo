@@ -39,7 +39,7 @@ class Baserequests:
         return response
 
 
-    def post_request(self,url,params,data,headers):
+    def post_request(self,url,data):
         '''
         post方法
         :param url:
@@ -53,9 +53,9 @@ class Baserequests:
             url ='%s%s' % ('http://',url)
 
         try:
-            response=requests.post(url=url,params=params,data=data,headers=headers)
-            print(response.url)
-            print(response.headers)
+            response=requests.post(url=url,json=data)
+            # print(response.url)
+            # print(response.headers)
         except requests.exceptions.ConnectTimeout:
             raise Exception("ConnectTimeout")
             MyLog().debug("请求链接超时")
@@ -118,7 +118,7 @@ class Baserequests:
 
         return response
 
-    def sent_request_response(self,url,method,headers,data,params):
+    def sent_request_response(self,url,method,data):
         '''
         根据不同的方法获取response
         :param url:
@@ -128,13 +128,13 @@ class Baserequests:
         :return:
         '''
         if method == "get":
-            response = self.get_request(url=url, data=data)
+            response = self.get_request(url, data)
         elif method == "post":
-            response = self.post_request(url=url, params=params,data=data,headers=headers)
+            response = self.post_request(url,data)
         elif method == "put":
-            response = self.put_request(url=url, data=data)
+            response = self.put_request(url, data)
         elif method == "delete":
-            response = self.delete_request(url=url, data=data)
+            response = self.delete_request(url, data)
         else:
             print("this method is error")
         return response

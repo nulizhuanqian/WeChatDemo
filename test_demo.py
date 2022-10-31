@@ -25,25 +25,30 @@ class TestDemo:
                 'access_token':self.test_get_token(),
                 'id':''
             })
-        print(r.json())
+        print(r.url)
         assert r.json()['errcode'] == 0
         return print(r.json())
 
 
     # 创建部门
     def test_create_department(self):
-
-        r=requests.post(
-            url = 'https://qyapi.weixin.qq.com/cgi-bin/department/create',
-             params={'access_token':self.test_get_token()},
-             json={
+        data={
                 "name": "广州研发中心",
                 "name_en": "RDGZ",
                 "parentid": 1,
                 "order": 1,
                 "id": 5
 
-        })
+        }
+        r=requests.post(
+            url = 'https://qyapi.weixin.qq.com/cgi-bin/department/create',
+            params={'access_token':self.test_get_token()},
+            json=data)
+        # print(r.url)
+        # print(r.headers)
+        # print(r.headers['Content-Type'])
+        print(type(r.request.body))
+        print(r.raw)
         assert r.json()["errcode"] == 0
 
 
@@ -64,20 +69,7 @@ class TestDemo:
         )
         print(r.url)
 
-    def test_create_department1(self):
-        data = {
-            "name": "广州研发中心",
-            "name_en": "RDGZ",
-            "parentid": 1,
-            "order": 1,
-            "id": 5
 
-        }
-        r=requests.post(
-            url = 'https://qyapi.weixin.qq.com/cgi-bin/department/create',
-            params={'access_token':self.test_get_token()},
-            data=json.dumps(data))
-        assert r.json()["errcode"] == 0
 
     # 删除部门（不能删除根部门，不能删除含有子部门，成员的部门）
     def test_delete_department(self):
@@ -87,7 +79,14 @@ class TestDemo:
         )
         assert r.json()["errcode"] == 0
 
-
-
+    # def test_get_access_token(self):
+    #     r = requests.get(
+    #         url='https://qyapi.weixin.qq.com/cgi-bin/gettoken',
+    #         params={'corpid': 'wwf56f991cbbdd11e7',
+    #                 'corpsecret': '5okJWMCCzFT9hIxuxVUw5ORAwkf7WjjPK1q_E1dv09g'})
+    #     print(type(r.json()['access_token']))
+    #     access_token = '?access_token='+r.json()['access_token']
+    #     print(access_token)
+    #     return access_token
 
 

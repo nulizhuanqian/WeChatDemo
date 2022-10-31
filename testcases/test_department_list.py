@@ -20,21 +20,20 @@ class TestDepartment:
     #      assert self.department.jsonpath(expr='$..parentid')[0]== 1
 
     data_case = '/department_list.yml'
-    headers = {
-        "Content-type": "application/json"
-    }
-
+    # headers = {"Content-Type": "application/json"}
     @pytest.mark.parametrize('case', yaml_init.read_yamls(data_case))
     def test_department_list(self, case, get_base_url, get_access_token):
         base_url = get_base_url
+        # print(type(case))
         for i in case:
             if 'create' in i:
-                url = base_url + case[i]['url']
+                url = base_url + case[i]['url']+get_access_token
                 method = case[i]['method']
                 data = case[i]['body']
-                print(type(data))
-                print(json.dumps(data))
-                res_insert = handle_request.sent_request_response(url, method, params=get_access_token,
-                                                                  data=json.dumps(data), headers=self.headers)
-                print(res_insert)
-                assert (case[i]['expect']['errcode'] == res_insert.status_code)
+                # print(type(data))
+                # print(data)
+                res_insert = handle_request.sent_request_response(url, method,data)
+                # print(res_insert.request.body)
+                # print(type(res_insert.request.body))
+                # print(res_insert.json())
+                assert (case[i]['expect']['errcode'] == res_insert.json()['errcode'])

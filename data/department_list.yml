@@ -1,10 +1,10 @@
 
 create_department:
-  url: /create
+  url: /department/create
   method: post
   body:
-    name: "广州研发中心"
-    name_en: "RDGZ"
+    name: 广州研发中心
+    name_en: RDGZ
     parentid: 1
     order: 1
     id: 5
